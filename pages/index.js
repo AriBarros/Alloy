@@ -1,35 +1,9 @@
 //Import all configs in variable appConfig
 import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React from 'react';
+import { useRouter } from 'next/router'
 
-function GlobalStyle() {
-    return (
-        <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    );
-}
 
 function Title(props) {
 
@@ -51,34 +25,17 @@ function Title(props) {
     );
 }
 
-
-// //React Component
-// function HomePage() {
-
-//     return (
-//         <div>
-//             <GlobalStyle />
-//             <Title tag="h2">Welcome Back!</Title>
-//             <h2>Discord - Alloy</h2>
-
-//         </div>
-
-//     ) 
-//   }
-
-//   export default HomePage
-
 export default function PaginaInicial() {
-    const username = 'AriBarros';
+    // const username = 'AriBarros';
+    const [username, setUsername] = React.useState('AriBarros')
+    const roteamento = useRouter()
 
     return (
         <>
-            <GlobalStyle />
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    backgroundColor: appConfig.theme.colors.primary[500],
-                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+                    backgroundImage: 'url(https://images.hdqwalls.com/wallpapers/dog-beach-minimal-art-ke.jpg)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
@@ -93,24 +50,59 @@ export default function PaginaInicial() {
                         },
                         width: '100%', maxWidth: '700px',
                         borderRadius: '5px', padding: '32px', margin: '16px',
-                        boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        boxShadow: '0 2px 10px 0 rgb(0 0 0 / 80%)',
+                        // backgroundColor: appConfig.theme.colors.neutrals['200'],
+                        backgroundColor: '#292033',
+                        // }}
                     }}
                 >
                     {/* Formulário */}
                     <Box
                         as="form"
+                        onSubmit={function (infosDoEvento) {
+                            infosDoEvento.preventDefault()
+                            console.log('Form submetido')
+                            roteamento.push('/chat')
+                            // window.location.href = '/chat'
+                        }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-                        <Title tag="h2">Welcome Back!</Title>
-                        <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
+                        <Title tag="h2">Welcome Back! </Title>
+                        <Text variant="body3" styleSheet={{ marginBottom: '25px', color: 'appConfig.theme.colors.neutrals[300]' }}>
                             {appConfig.name}
+
+
                         </Text>
 
+                        {/* <input 
+                            type="text" 
+                            value={username}
+                            onChange={function (event) {
+                                console.log('Typed', event.target.value)
+
+                                // Define o valor
+                                const valor = event.target.value
+                                // Troca o valor da variável
+                                setUsername(valor)
+
+                            }}
+
+                        /> */}
                         <TextField
+
+                            value={username}
+                            onChange={function (event) {
+                                console.log('Typed', event.target.value)
+
+                                // Define o valor
+                                const valor = event.target.value
+                                // Troca o valor da variável
+                                setUsername(valor)
+                            }}
+
                             fullWidth
                             textFieldColors={{
                                 neutral: {
@@ -145,9 +137,9 @@ export default function PaginaInicial() {
                             maxWidth: '200px',
                             padding: '16px',
                             backgroundColor: appConfig.theme.colors.neutrals[800],
-                            border: '1px solid',
+                            border: 'px solid',
                             borderColor: appConfig.theme.colors.neutrals[999],
-                            borderRadius: '10px',
+                            borderRadius: '20px',
                             flex: 1,
                             minHeight: '240px',
                         }}
