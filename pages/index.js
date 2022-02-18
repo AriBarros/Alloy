@@ -26,7 +26,7 @@ function Title(props) {
 }
 
 export default function PaginaInicial() {
-    // const username = 'AriBarros';
+
     const [username, setUsername] = React.useState('AriBarros')
     const roteamento = useRouter()
 
@@ -51,9 +51,8 @@ export default function PaginaInicial() {
                         width: '100%', maxWidth: '700px',
                         borderRadius: '5px', padding: '32px', margin: '16px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 80%)',
-                        // backgroundColor: appConfig.theme.colors.neutrals['200'],
                         backgroundColor: '#292033',
-                        // }}
+
                     }}
                 >
                     {/* Formulário */}
@@ -63,7 +62,7 @@ export default function PaginaInicial() {
                             infosDoEvento.preventDefault()
                             console.log('Form submetido')
                             roteamento.push('/chat')
-                            // window.location.href = '/chat'
+
                         }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -77,20 +76,7 @@ export default function PaginaInicial() {
 
                         </Text>
 
-                        {/* <input 
-                            type="text" 
-                            value={username}
-                            onChange={function (event) {
-                                console.log('Typed', event.target.value)
 
-                                // Define o valor
-                                const valor = event.target.value
-                                // Troca o valor da variável
-                                setUsername(valor)
-
-                            }}
-
-                        /> */}
                         <TextField
 
                             value={username}
