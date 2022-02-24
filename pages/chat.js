@@ -4,33 +4,51 @@ import appConfig from '../config.json';
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpub3J1cGdzYWl5bGJ0dHlid2x4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDUwMDE3MzksImV4cCI6MTk2MDU3NzczOX0._naPUDe6BowyNjr15Al2Ognko7S7fXQVD0lSwU7YoVc'
-const SUPABASE_URL = 'https://znorupgsaiylbttybwlx.supabase.co' 
+const SUPABASE_URL = 'https://znorupgsaiylbttybwlx.supabase.co'
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-const dadosDoSupabase = supabaseClient
-    .from('mensagens')
-    .select('*')
-
-const.log(dadosDoSupabase)
 
 export default function ChatPage() {
 
     const [mensagem, setMensagem] = React.useState('');
     const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
+    React.useEffect(() => {
+        supabaseClient
+            .from('mensagens')
+            .select('*')
+            .order('id', { ascending: false })
+            .then(({ data }) => {
+                console.log('Dados da consulta:', data);
+                setListaDeMensagens(data);
+            });
+    }, []);
+
+
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
-            id: listaDeMensagens.length + 1,
+            // id: listaDeMensagens.length + 1,
             de: 'AriBarros',
             texto: novaMensagem,
         };
 
-        setListaDeMensagens([
-            mensagem,
-            ...listaDeMensagens,
-        ]);
+        supabaseClient
+            .from('mensagens')
+            .insert([
+                // Tem que ser um objeto com os MESMOS CAMPOS que você escreveu no supabase
+                mensagem
+            ])
+            .then(({ data }) => {
+                console.log('Criando mensagem: ', data);
+                setListaDeMensagens([
+                    data[0],
+                    ...listaDeMensagens,
+                ]);
+
+            });
         setMensagem('');
     }
+
 
     return (
         <Box
@@ -161,7 +179,7 @@ function MessageList(props) {
                                 backgroundColor: appConfig.theme.colors.neutrals[700],
                             }
                         }}
-                    > 
+                    >
                         <Box
                             styleSheet={{
                                 marginBottom: '8px',
@@ -175,7 +193,7 @@ function MessageList(props) {
                                     display: 'inline-block',
                                     marginRight: '8px',
                                 }}
-                                src={`https://github.com/AriBarros.png`}
+                                src={`https://github.com/${mensagem.de}.png`}
                             />
                             <Text tag="strong">
                                 {mensagem.de}
