@@ -20,4 +20,4 @@ How to start:
 
 Hope you enjoy this project!!!
 
-![Home](.docs/home.png)
+![Home](docs/home.png)
