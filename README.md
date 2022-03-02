@@ -12,11 +12,15 @@ How to start:
 - Clone the project
 - Install yarn (yarn is used to install all dependencies of a project)
 
-    'yarn install'
-
+    ```
+    yarn install
+    ```
+    
 - Run project with yarn
 
-    'yarn dev' 
+    ```
+    yarn dev
+    ```
 
 Hope you enjoy this project!!!
 
